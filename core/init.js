@@ -6,6 +6,12 @@ class InitManager {
     InitManager.app = app;
     InitManager.initLoadRouters();
     InitManager.loadHttpException();
+    InitManager.initLoadConfig();
+  }
+  static initLoadConfig(paths = "") {
+    const configPath = paths || path.resolve(process.cwd(), "config/config.js");
+    const config = require(configPath);
+    global.config = config;
   }
   static initLoadRouters() {
     requireDirectory(module, path.resolve(process.cwd(), "app/api"), {
