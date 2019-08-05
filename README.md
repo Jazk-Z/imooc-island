@@ -31,3 +31,12 @@
 ## Koa 中间件只会初始化一次
 
 ## js 序列化问题 怎么实现
+
+## node 循环导入是个问题 需要注意
+
+```js
+// a.js
+const a = require("./b");
+// b.js
+const b = require("./a");
+```

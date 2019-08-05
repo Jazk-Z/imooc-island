@@ -5,6 +5,13 @@ const LoginType = {
   ADMIN_EMAIL: 200,
   isThisType
 };
+const ArtType = {
+  MOIVE: 100,
+  MUSIC: 200,
+  SENTENCE: 300,
+  BOOK: 400,
+  isThisType
+};
 function isThisType(val) {
   for (let key in this) {
     if (this[key] == val) {
@@ -14,5 +21,6 @@ function isThisType(val) {
   return false;
 }
 module.exports = {
-  LoginType
+  LoginType,
+  ArtType
 };

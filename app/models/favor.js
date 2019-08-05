@@ -1,7 +1,7 @@
-const { Sequelize, Model } = require("sequelize");
+const { Sequelize, Model, Op } = require("sequelize");
+const uuid = require("uuid/v4");
 const { db } = require("../../core/db");
 const Art = require("./art");
-const uuid = require("uuid/v4");
 class Favor extends Model {
   static async like(art_id, type, uid) {
     const favor = await Favor.findOne({
@@ -11,7 +11,6 @@ class Favor extends Model {
         uid
       }
     });
-    console.log(favor);
     if (favor) {
       throw new global.errs.likeError();
     }
@@ -25,8 +24,7 @@ class Favor extends Model {
         },
         { transaction: t }
       );
-      console.log(result);
-      const art = await Art.getData(art_id, type);
+      const art = await Art.getData(art_id, type, false);
       const add = await art.increment("fav_nums", { by: 1, transaction: t });
       await t.commit();
       return add;
@@ -43,11 +41,9 @@ class Favor extends Model {
         uid
       }
     });
-    console.log(!favor);
     if (!favor) {
       throw new global.errs.disLikeError();
     }
-    console.log(favor);
     const t = await db.transaction();
     try {
       await favor.destroy({
@@ -57,7 +53,7 @@ class Favor extends Model {
         force: true, // false 软删除
         transaction: t
       });
-      const art = await Art.getData(art_id, type);
+      const art = await Art.getData(art_id, type, false);
       const add = await art.decrement("fav_nums", { by: 1, transaction: t });
       await t.commit();
       return add;
@@ -75,6 +71,20 @@ class Favor extends Model {
       }
     });
     return favor ? true : false;
+  }
+  static async getMyClassicFavors(uid) {
+    const arts = await Favor.findAll({
+      where: {
+        uid,
+        type: {
+          [Op.not]: 400
+        }
+      }
+    });
+    if (!arts) {
+      throw new global.errs.NotFound();
+    }
+    return await Art.getList(arts);
   }
 }
 Favor.init(

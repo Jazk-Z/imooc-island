@@ -3,6 +3,7 @@ const catchError = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+    console.log(error);
     const isHttpException = error instanceof HttpException;
     const isDev = global.config.env === "dev";
     if (isDev && !isHttpException) {

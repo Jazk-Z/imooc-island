@@ -20,7 +20,14 @@ Moive.init(
     createdAt: "created_at",
     updatedAt: "updated_at",
     deletedAt: "deleted_at",
-    underscored: true
+    underscored: true,
+    scopes: {
+      bh: {
+        attributes: {
+          exclude: ["updated_at", "deleted_at", "created_at"]
+        }
+      }
+    }
   }
 );
 Moive.sync();
@@ -34,7 +41,14 @@ Sentence.init(
     createdAt: "created_at",
     updatedAt: "updated_at",
     deletedAt: "deleted_at",
-    underscored: true
+    underscored: true,
+    scopes: {
+      bh: {
+        attributes: {
+          exclude: ["updated_at", "deleted_at", "created_at"]
+        }
+      }
+    }
   }
 );
 Sentence.sync();
@@ -51,7 +65,14 @@ Music.init(
     createdAt: "created_at",
     updatedAt: "updated_at",
     deletedAt: "deleted_at",
-    underscored: true
+    underscored: true,
+    scopes: {
+      bh: {
+        attributes: {
+          exclude: ["updated_at", "deleted_at", "created_at"]
+        }
+      }
+    }
   }
 );
 Music.sync();
