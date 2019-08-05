@@ -48,16 +48,16 @@ class Art {
     };
     switch (type) {
       case 100:
-        return await Moive.scope(scope).findOne(finder);
+        return await Moive.scope(scope).findAll(finder);
         break;
       case 200:
-        return await Music.scope(scope).findOne(finder);
+        return await Music.scope(scope).findAll(finder);
         break;
       case 300:
-        return await Sentence.scope(scope).findOne(finder);
+        return await Sentence.scope(scope).findAll(finder);
         break;
       case 400:
-        return await Moive.findOne(finder);
+        return await Moive.findAll(finder);
         break;
       default:
         break;
