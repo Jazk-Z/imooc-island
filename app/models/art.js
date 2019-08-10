@@ -57,7 +57,14 @@ class Art {
         return await Sentence.scope(scope).findAll(finder);
         break;
       case 400:
-        return await Moive.findAll(finder);
+        const Book = require("./book");
+        let art = Book.scope(scope).findOne(finder);
+        if (!art) {
+          art = await Book.create({
+            id: art_id
+          });
+        }
+        return art;
         break;
       default:
         break;

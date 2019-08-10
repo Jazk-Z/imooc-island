@@ -40,3 +40,16 @@ const a = require("./b");
 // b.js
 const b = require("./a");
 ```
+
+## 索引不要用 %key 之类的 要用 key%
+
+## JSON.stringify(obj)
+
+```js
+JSON.stringify()调用obj toJSON的方法
+obj = {
+    toJSON: () => {console.log(2)}
+}
+```
+
+## 自动 无感知刷新令盘
